@@ -6,7 +6,7 @@ import Searchbar from 'components/Searchbar';
 import Modal from 'components/Modal';
 import { Wrapper } from './App.styled';
 
-export class App extends Component {
+class App extends Component {
   state = {
     searchQuery: '',
     imgUrl: '',
@@ -53,3 +53,5 @@ export class App extends Component {
     );
   }
 }
+
+export default App;
