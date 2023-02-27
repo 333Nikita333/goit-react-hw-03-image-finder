@@ -33,7 +33,7 @@ class SearchBar extends Component {
     }
 
     if (newImageQuery !== this.props.searchQuery) {
-      this.props.onSubmit(this.state.newSearchQuery);
+      this.props.onSubmit(newImageQuery);
       this.setState({
         newSearchQuery: '',
       });

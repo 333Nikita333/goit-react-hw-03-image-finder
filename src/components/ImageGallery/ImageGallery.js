@@ -58,22 +58,20 @@ class ImageGallery extends Component {
       status: Status.PENDING,
     });
 
-    if (imgQuery !== '') {
-      fetchImagesByName(nextPage, imgQuery)
-        .then(nextImages => {
-          this.setState({
-            page: this.state.page + 1,
-            status: Status.RESOLVED,
-            images: [...this.state.images, ...nextImages.hits],
-          });
-        })
-        .catch(error => {
-          this.setState({
-            error,
-            status: Status.REJECTED,
-          });
+    fetchImagesByName(nextPage, imgQuery)
+      .then(nextImages => {
+        this.setState({
+          page: this.state.page + 1,
+          status: Status.RESOLVED,
+          images: [...this.state.images, ...nextImages.hits],
         });
-    }
+      })
+      .catch(error =>
+        this.setState({
+          error,
+          status: Status.REJECTED,
+        })
+      );
   };
 
   onCardClick = e => {

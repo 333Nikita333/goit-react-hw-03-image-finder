@@ -9,7 +9,7 @@ class Modal extends Component {
     window.addEventListener('keydown', this.handleEscDown);
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     window.removeEventListener('keydown', this.handleEscDown);
   }
 
