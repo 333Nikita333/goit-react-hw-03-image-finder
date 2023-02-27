@@ -13,7 +13,3 @@ export const fetchImagesByName = async (pageNum = 1, searchQuerry = '') => {
   const response = await axios.get(BASE_URL, { params });
   return response.data;
 };
-
-// id - уникальный идентификатор
-// webformatURL - ссылка на маленькое изображение для списка карточек
-// largeImageURL - ссылка на большое изображение для модального окна

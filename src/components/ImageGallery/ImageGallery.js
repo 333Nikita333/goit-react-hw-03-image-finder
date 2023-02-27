@@ -21,7 +21,7 @@ class ImageGallery extends Component {
     totalHits: null,
   };
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, _) {
     try {
       const prevImgName = prevProps.searchQuery;
       const nextImgName = this.props.searchQuery;
@@ -33,7 +33,8 @@ class ImageGallery extends Component {
           status: Status.PENDING,
         });
 
-        const images = await fetchImagesByName(this.state.page, nextImgName);
+        const images = await fetchImagesByName(1, nextImgName);
+
         this.setState({
           page: this.state.page + 1,
           status: Status.RESOLVED,
@@ -42,10 +43,38 @@ class ImageGallery extends Component {
         });
       }
     } catch (error) {
-      this.setState({ error, status: Status.REJECTED });
-      console.log(error.message);
+      this.setState({
+        error,
+        status: Status.REJECTED,
+      });
     }
   }
+
+  onBtnLoadMore = () => {
+    const imgQuery = this.props.searchQuery;
+    const nextPage = this.state.page;
+
+    this.setState({
+      status: Status.PENDING,
+    });
+
+    if (imgQuery !== '') {
+      fetchImagesByName(nextPage, imgQuery)
+        .then(nextImages => {
+          this.setState({
+            page: this.state.page + 1,
+            status: Status.RESOLVED,
+            images: [...this.state.images, ...nextImages.hits],
+          });
+        })
+        .catch(error => {
+          this.setState({
+            error,
+            status: Status.REJECTED,
+          });
+        });
+    }
+  };
 
   onCardClick = e => {
     if (e.currentTarget !== e.target) {
@@ -62,26 +91,26 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { status, images } = this.state;
+    const { status, images, totalHits } = this.state;
 
-    if (status === Status.RESOLVED) {
-      return (
-        <>
-          <ImageGalleryBox onClick={this.onCardClick}>
-            {images.map(({ id, webformatURL, tags }) => {
-              return (
-                <ImageGalleryItem
-                  key={id}
-                  smallImageURL={webformatURL}
-                  tags={tags}
-                />
-              );
-            })}
-          </ImageGalleryBox>
-          <ButtonLoadMore />
-        </>
-      );
-    }
+    return (
+      <>
+        <ImageGalleryBox onClick={this.onCardClick}>
+          {images.map(({ id, webformatURL, tags }) => {
+            return (
+              <ImageGalleryItem
+                key={id}
+                smallImageURL={webformatURL}
+                tags={tags}
+              />
+            );
+          })}
+        </ImageGalleryBox>
+        {status === Status.RESOLVED && images.length !== totalHits && (
+          <ButtonLoadMore onBtnLoadMore={this.onBtnLoadMore} />
+        )}
+      </>
+    );
   }
 }
 

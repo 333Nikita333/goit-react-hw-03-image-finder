@@ -16,8 +16,9 @@ class App extends Component {
   };
 
   handleSubmit = searchQuery => {
-    console.log(searchQuery);
-    this.setState({ searchQuery });
+    this.setState({
+      searchQuery,
+    });
   };
 
   toggleModal = () => {
@@ -27,10 +28,10 @@ class App extends Component {
   };
 
   onCardClick = (largeImageUrl, imageTags) => {
-    this.setState({
-      imgUrl: largeImageUrl,
-      tags: imageTags,
-    });
+      this.setState({
+        imgUrl: largeImageUrl,
+        tags: imageTags,
+      });
   };
 
   render() {

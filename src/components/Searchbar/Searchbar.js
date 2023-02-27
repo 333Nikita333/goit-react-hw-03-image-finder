@@ -14,7 +14,9 @@ class SearchBar extends Component {
   };
 
   handleChange = e => {
-    this.setState({ newSearchQuery: e.currentTarget.value.trim() });
+    this.setState({
+      newSearchQuery: e.currentTarget.value.trim(),
+    });
   };
 
   handleSubmit = e => {
@@ -23,15 +25,19 @@ class SearchBar extends Component {
     const newImageQuery = this.state.newSearchQuery;
 
     if (newImageQuery === '') {
-      return alert('Введите название изображения');
+      return alert('Введите поисковый запрос');
     }
 
     if (newImageQuery === this.props.searchQuery) {
       console.log('Введите другой запрос');
     }
 
-    this.props.onSubmit(newImageQuery);
-    this.setState({ newSearchQuery: '' });
+    if (newImageQuery !== this.props.searchQuery) {
+      this.props.onSubmit(this.state.newSearchQuery);
+      this.setState({
+        newSearchQuery: '',
+      });
+    }
   };
 
   render() {
@@ -46,7 +52,6 @@ class SearchBar extends Component {
 
           <SearchbarInput
             type="text"
-            name="imageName"
             autocomplete="off"
             autoFocus
             placeholder="Search images and photos"
