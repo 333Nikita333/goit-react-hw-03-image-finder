@@ -1,5 +1,5 @@
 import { Button } from './ButtonLoadMore.styled';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const ButtonLoadMore = ({ onBtnLoadMore }) => {
   return (
@@ -9,8 +9,8 @@ const ButtonLoadMore = ({ onBtnLoadMore }) => {
   );
 };
 
-export default ButtonLoadMore;
-
 ButtonLoadMore.propTypes = {
   onBtnLoadMore: PropTypes.func.isRequired,
-}
+};
+
+export default ButtonLoadMore;

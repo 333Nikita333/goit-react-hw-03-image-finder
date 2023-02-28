@@ -9,9 +9,9 @@ const ImageGalleryItem = ({ smallImageURL, tags }) => {
   );
 };
 
-export default ImageGalleryItem;
-
 ImageGalleryItem.propTypes = {
   smallImageURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
 };
+
+export default ImageGalleryItem;

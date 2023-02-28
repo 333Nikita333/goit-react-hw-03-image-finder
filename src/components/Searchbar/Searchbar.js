@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { GoSearch } from 'react-icons/go';
 import { toast } from 'react-toastify';
 import {
@@ -26,11 +26,11 @@ class SearchBar extends Component {
     const newImageQuery = this.state.newSearchQuery;
 
     if (newImageQuery === '') {
-      return toast.warning("Please enter a search term")
+      return toast.warning('Please enter a search term');
     }
 
     if (newImageQuery === this.props.searchQuery) {
-      toast.info("Enter another request")
+      toast.info('Enter another request');
     }
 
     if (newImageQuery !== this.props.searchQuery) {
@@ -65,9 +65,9 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
-
 SearchBar.propTypes = {
   searchQuery: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-}
+};
+
+export default SearchBar;
