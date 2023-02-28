@@ -5,6 +5,7 @@ import { ImageGalleryBox } from './ImageGallery.styled';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import ButtonLoadMore from 'components/ButtonLoadMore';
 import Loader from 'components/Loader';
+import { toast } from 'react-toastify';
 
 const Status = {
   IDLE: 'idle',
@@ -42,6 +43,15 @@ class ImageGallery extends Component {
           images: images.hits,
           totalHits: images.totalHits,
         });
+        if (images.totalHits > 0 && images.totalHits <= 10) {
+          toast.warning("Sorry, there's nothing more to show");
+        }
+        if (images.totalHits > 0) {
+          toast.success(`Success! Found ${images.totalHits} images`);
+        }
+        if (images.totalHits === 0) {
+          toast.error(`Oops! Nothing found. Enter another request`);
+        }
       }
     } catch (error) {
       this.setState({
@@ -66,6 +76,14 @@ class ImageGallery extends Component {
           status: Status.RESOLVED,
           images: [...this.state.images, ...nextImages.hits],
         });
+
+        if (
+          nextImages.totalHits === this.state.images.length ||
+          nextImages.totalHits <
+            this.state.images.length + nextImages.hits.length
+        ) {
+          toast.error(`Sorry we have nothing more to show you.`);
+        }
       })
       .catch(error =>
         this.setState({
@@ -94,7 +112,6 @@ class ImageGallery extends Component {
 
     return (
       <>
-        {status === Status.PENDING && <Loader />}
         <ImageGalleryBox onClick={this.onCardClick}>
           {images.map(({ id, webformatURL, tags }) => {
             return (
@@ -106,9 +123,12 @@ class ImageGallery extends Component {
             );
           })}
         </ImageGalleryBox>
-        {status === Status.RESOLVED && images.length !== totalHits && (
-          <ButtonLoadMore onBtnLoadMore={this.onBtnLoadMore} />
-        )}
+        {status === Status.RESOLVED &&
+          images.length !== totalHits &&
+          images.length < totalHits && (
+            <ButtonLoadMore onBtnLoadMore={this.onBtnLoadMore} />
+          )}
+        {status === Status.PENDING && <Loader />}
       </>
     );
   }

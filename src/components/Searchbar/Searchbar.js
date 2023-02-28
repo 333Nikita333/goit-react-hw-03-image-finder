@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types'
 import { GoSearch } from 'react-icons/go';
+import { toast } from 'react-toastify';
 import {
   SearchbarBox,
   SearchbarInput,
@@ -25,11 +26,11 @@ class SearchBar extends Component {
     const newImageQuery = this.state.newSearchQuery;
 
     if (newImageQuery === '') {
-      return alert('Введите поисковый запрос');
+      return toast.warning("Please enter a search term")
     }
 
     if (newImageQuery === this.props.searchQuery) {
-      console.log('Введите другой запрос');
+      toast.info("Enter another request")
     }
 
     if (newImageQuery !== this.props.searchQuery) {
