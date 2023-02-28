@@ -1,4 +1,5 @@
 import { ImageItem } from './ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 
 const ImageGalleryItem = ({ smallImageURL, tags }) => {
   return (
@@ -9,3 +10,8 @@ const ImageGalleryItem = ({ smallImageURL, tags }) => {
 };
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  smallImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+};

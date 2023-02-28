@@ -8,7 +8,7 @@ export const fetchImagesByName = async (pageNum = 1, searchQuerry = '') => {
     image_type: 'photo',
     page: pageNum,
     orientation: 'horizontal',
-    per_page: 200,
+    per_page: 12,
   };
   const response = await axios.get(BASE_URL, { params });
   return response.data;

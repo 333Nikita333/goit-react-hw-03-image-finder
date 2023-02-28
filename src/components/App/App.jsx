@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types'
-
 import ImageGallery from 'components/ImageGallery';
 import Searchbar from 'components/Searchbar';
 import Modal from 'components/Modal';
@@ -51,7 +49,7 @@ class App extends Component {
             {<img src={imgUrl} alt={tags} />}
           </Modal>
         )}
-        <ToastContainer autoClose={3000} theme="dark"/>
+        <ToastContainer autoClose={3000} theme="dark" />
       </Wrapper>
     );
   }
