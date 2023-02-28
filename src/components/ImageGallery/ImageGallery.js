@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types'
-import ImageGalleryItem from 'components/ImageGalleryItem';
-import { ImageGalleryBox } from './ImageGallery.styled';
 import { fetchImagesByName } from 'services/imagesApi';
+import { ImageGalleryBox } from './ImageGallery.styled';
+import ImageGalleryItem from 'components/ImageGalleryItem';
 import ButtonLoadMore from 'components/ButtonLoadMore';
+import Loader from 'components/Loader';
 
 const Status = {
   IDLE: 'idle',
@@ -93,6 +94,7 @@ class ImageGallery extends Component {
 
     return (
       <>
+        {status === Status.PENDING && <Loader />}
         <ImageGalleryBox onClick={this.onCardClick}>
           {images.map(({ id, webformatURL, tags }) => {
             return (
